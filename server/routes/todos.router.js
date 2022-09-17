@@ -16,7 +16,7 @@ router.get('/', (req,res) => {
 
 // POST route for /todos
 router.post('/', (req,res) => {
-    let todo = req.body;
+    const todo = req.body;
     console.log('In POST route /todos', todo);
     let queryText = '';
     let values = [];
@@ -53,13 +53,30 @@ router.post('/', (req,res) => {
 });
 
 // PUT route for /todos
+// UPDATE the boolean value isDone. (maybe implement time stamp here)
+router.put('/:todoid', (req,res) => {
+    console.log(`In PUT route /todos/`, req.body, req.params);
+    const todoid = req.params.todoid;
+    const isDone = !req.body.isDone;
+    const queryText = `UPDATE "todos" SET "isDone"=$1 WHERE id=$2 RETURNING *;`;
+    let values = [isDone, todoid];
+
+    pool.query(queryText,values).then((result) => {
+        res.send(result.rows);
+    }).catch((error) => {
+        console.log(`Error updating isDone for to-do with id${todoid}`, error);
+        res.sendStatus(500);
+    });
+});
+
+// PUT route for /todos/edit
 // Will grab keys from current to do item 
 // should only be updated in an edit mode.
 router.put('/edit/:todoid', (req,res) => {
-    console.log(`In POST route /todos`, req.params, req.body);
-    let todoid = req.params.todoid;
-    let todo = req.body;
-    let queryText = `UPDATE "todos" SET "task"=$1, "priority"=$2, "due"=$3 WHERE id=$4 RETURNING *;`;
+    console.log(`In POST route /todos/edit`, req.params, req.body);
+    const todoid = req.params.todoid;
+    const todo = req.body;
+    const queryText = `UPDATE "todos" SET "task"=$1, "priority"=$2, "due"=$3 WHERE id=$4 RETURNING *;`;
     let values = [todo.task, todo.priority, todo.due, todoid];
 
     pool.query(queryText,values).then((result) => {
@@ -72,8 +89,8 @@ router.put('/edit/:todoid', (req,res) => {
 
 // DELETE route for /todos
 router.delete('/:todoid', (req,res) => {
-    console.log('In DELETE route /todos', req.params);
-    let todoid = req.params.todoid;
+    console.log('In DELETE route /todos/', req.params);
+    const todoid = req.params.todoid;
     const queryText = `DELETE FROM "todos" WHERE id=$1 RETURNING *;`;
     pool.query(queryText, [todoid]).then((result) => {
         res.send(result.rows).status(200);
