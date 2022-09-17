@@ -32,7 +32,7 @@ function appendTodos(response) {
             <td>${todo.priority}</td>
             <td>${todo.task}</td>
             <td>${todo.due}</td>
-            <td data-isDone="${todo.isDone}">${todo.isDone}
+            <td data-isDone="${todo.isDone}">
                 <input data-id="${todo.id}" class="check" type="checkbox" ${todo.isDone ? 'checked' : ''}/>
             </td>
             <td>
