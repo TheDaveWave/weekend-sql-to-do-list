@@ -58,7 +58,7 @@ router.put('/:todoid', (req,res) => {
     console.log(`In PUT route /todos/`, req.body, req.params);
     const todoid = req.params.todoid;
     // convert isDone to true.
-    const isDone = Boolean(req.body.isDone);
+    const isDone = req.body.isDone;
     const queryText = `UPDATE "todos" SET "isDone"=$1 WHERE id=$2 RETURNING *;`;
     let values = [isDone, todoid];
 
