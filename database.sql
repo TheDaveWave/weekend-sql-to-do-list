@@ -1,7 +1,7 @@
 CREATE TABLE "todos" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"task" VARCHAR(250) NOT NULL,
-	"priority" INTEGER DEFAULT 1 CHECK ("priority" > 0 AND "priority" < 6), --Default to highest priority of 1.
+	"priority" INTEGER DEFAULT '1' CHECK ("priority" > 0 AND "priority" < 6), --Default to highest priority of 1.
 	"due" date,
 	"isDone" BOOLEAN DEFAULT FALSE, 
 	"finished" date
