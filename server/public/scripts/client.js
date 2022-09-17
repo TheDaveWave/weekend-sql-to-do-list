@@ -7,6 +7,30 @@ function readyNow() {
     // click handlers
     $('#todos').on('click', '.delBtn', deleteTodo);
     $('#todos').on('click', '.check', toggleCheck);
+    $('#addBtn').on('click', addTodo);
+}
+
+// POST to add a new todo.
+function addTodo() {
+    const newTodo = {
+        task: $('#task').val(),
+        priority: $('#priority').val(),
+        due: $('#due').val()
+    };
+
+    $.ajax({
+        method: 'POST',
+        url: '/todos',
+        data: newTodo
+    }).then(() => {
+        grabTodos();
+    }).catch((error) => {
+        console.log(error);
+    });
+
+    $('#priority').prop('selectedIndex', 0);
+    $('#task').val('');
+    $('#due').val('');
 }
 
 // GET the todo's from the server.
@@ -31,7 +55,7 @@ function appendTodos(response) {
         <tr>
             <td>${todo.priority}</td>
             <td>${todo.task}</td>
-            <td>${todo.due}</td>
+            <td>${todo.due !== null ? todo.due : ''}</td>
             <td data-isDone="${todo.isDone}">
                 <input data-id="${todo.id}" class="check" type="checkbox" ${todo.isDone ? 'checked' : ''}/>
             </td>
