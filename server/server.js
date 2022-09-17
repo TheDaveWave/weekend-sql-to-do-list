@@ -5,7 +5,7 @@ const todoRouter = require('./routes/todos.router');
 
 const app = express();
 app.use(express.urlencoded({extended:true}));
-app.use(express.static('public/server'));
+app.use(express.static('server/public'));
 
 // direct requests for /todos to todos.router.js
 app.use('/todos', todoRouter);
