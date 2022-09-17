@@ -22,7 +22,7 @@ router.post('/', (req,res) => {
     let values = [];
 
     // check for empty keys and use the correct query statement accordingly.
-    if(todo.task !== '' && todo.priority !== undefined && todo.due !== undefined) {
+    if(todo.task !== '' && todo.priority !== undefined && todo.due !== '') {
         // setup query statement to insert a new todo.
         queryText = `INSERT INTO "todos" ("task", "priority", "due")
         VALUES ($1, $2, $3);`;
@@ -32,7 +32,7 @@ router.post('/', (req,res) => {
         queryText = `INSERT INTO "todos" ("task", "priority")
         VALUES ($1, $2);`;
         values = [todo.task, todo.priority];
-    } else if (todo.task !== '' && todo.due !== undefined) {
+    } else if (todo.task !== '' && todo.due !== '') {
         queryText = `INSERT INTO "todos" ("task", "due")
         VALUES ($1, $2);`;
         values = [todo.task, todo.due];
@@ -52,6 +52,24 @@ router.post('/', (req,res) => {
    });
 });
 
+// PUT route for /todos
+// Will grab keys from current to do item 
+// should only be updated in an edit mode.
+router.put('/:todoid', (req,res) => {
+    console.log(`In POST route /todos`, req.params, req.body);
+    let todoid = req.params.todoid;
+    let todo = req.body;
+    let queryText = `UPDATE "todos" SET "task"=$1, "priority"=$2, "due"=$3 WHERE id=$4 RETURNING *;`;
+    let values = [todo.task, todo.priority, todo.due, todoid];
+
+    pool.query(queryText,values).then((result) => {
+        res.send(result.rows);
+    }).catch((error) => {
+        console.log(`Error in updating to-do with id:${todoid}`, error);
+        res.sendStatus(500);
+    });
+});
+
 // DELETE route for /todos
 router.delete('/:todoid', (req,res) => {
     console.log('In DELETE route /todos', req.params);
@@ -60,7 +78,7 @@ router.delete('/:todoid', (req,res) => {
     pool.query(queryText, [todoid]).then((result) => {
         res.send(result.rows).status(200);
     }).catch((error) => {
-        console.log(`Error deleting todo with id: ${todoid}`, error);
+        console.log(`Error deleting to-do with id:${todoid}`, error);
         res.sendStatus(500);
     });
 });
