@@ -55,7 +55,7 @@ router.post('/', (req,res) => {
 // PUT route for /todos
 // Will grab keys from current to do item 
 // should only be updated in an edit mode.
-router.put('/:todoid', (req,res) => {
+router.put('/edit/:todoid', (req,res) => {
     console.log(`In POST route /todos`, req.params, req.body);
     let todoid = req.params.todoid;
     let todo = req.body;
