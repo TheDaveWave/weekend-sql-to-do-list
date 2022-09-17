@@ -26,6 +26,9 @@ function addTodo() {
         grabTodos();
     }).catch((error) => {
         console.log(error);
+        if(error.status === 400) {
+            alert('Please fill in a task.');
+        }
     });
 
     $('#priority').prop('selectedIndex', 0);

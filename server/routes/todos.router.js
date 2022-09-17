@@ -40,6 +40,9 @@ router.post('/', (req,res) => {
         queryText = `INSERT INTO "todos" ("task")
         VALUES ($1);`;
         values = [todo.task];
+    } else {
+        res.status(400).send('No task submitted');
+        return;
     }
     // console.log(queryText);
     // console.log(values);
