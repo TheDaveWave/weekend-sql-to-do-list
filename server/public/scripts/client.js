@@ -5,7 +5,7 @@ function readyNow() {
     // grab data
     grabTodos();
     // click handlers
-
+    $('#todos').on('click', '.delBtn', deleteTodo);
 }
 
 // GET the todo's from the server.
@@ -23,7 +23,7 @@ function grabTodos() {
 // display the todo list onto the DOM.
 function appendTodos(response) {
     // clear table
-    $('todos').empty();
+    $('#todos').empty();
     for(const todo of response) {
         $('#todos').append(`
         <tr>
@@ -39,4 +39,18 @@ function appendTodos(response) {
         </tr>
         `);
     }
+}
+
+// Ajax request to DELETE a todo
+function deleteTodo(event) {
+    const todoid = $(event.target).data('todoid');
+    $.ajax({
+        method: 'DELETE',
+        url: `/todos/${todoid}`
+    }).then(() => {
+        // refresh the table
+        grabTodos();
+    }).catch((error) => {
+        console.log(error);
+    });
 }
