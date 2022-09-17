@@ -14,6 +14,7 @@ router.get('/', (req,res) => {
     });
 });
 
+// POST route for /todos
 router.post('/', (req,res) => {
     let todo = req.body;
     console.log('In POST route /todos', todo);
@@ -49,6 +50,19 @@ router.post('/', (req,res) => {
         console.log(`Error creating to-do`, error);
         res.sendStatus(500);
    });
+});
+
+// DELETE route for /todos
+router.delete('/:todoid', (req,res) => {
+    console.log('In DELETE route /todos', req.params);
+    let todoid = req.params.todoid;
+    const queryText = `DELETE FROM "todos" WHERE id=$1 RETURNING *;`;
+    pool.query(queryText, [todoid]).then((result) => {
+        res.send(result.rows).status(200);
+    }).catch((error) => {
+        console.log(`Error deleting todo with id: ${todoid}`, error);
+        res.sendStatus(500);
+    });
 });
 
 module.exports = router;
