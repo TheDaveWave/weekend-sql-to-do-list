@@ -7,4 +7,4 @@ CREATE TABLE "todos" (
 );
 
 INSERT INTO "todos" ("task", "due")
-VALUES ('Finish weekend challenge', '9-19-2020'), ('Have Fun', '1-1-2049'), ('Do a backflip', '1-1-2077');
+VALUES ('Finish weekend challenge', '9-19-2022'), ('Have Fun', '1-1-2049'), ('Do a backflip', '1-1-2077');
