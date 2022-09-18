@@ -54,11 +54,13 @@ function appendTodos(response) {
     // clear table
     $('#todos').empty();
     for(const todo of response) {
+        let cleanDue = todo.due.substring(0, todo.due.indexOf('T'));
+        console.log(cleanDue);
         $('#todos').append(`
         <tr>
             <td>${todo.priority}</td>
             <td>${todo.task}</td>
-            <td>${todo.due !== null ? todo.due : ''}</td>
+            <td>${todo.due !== null ? cleanDue : ''}</td>
             <td data-isDone="${todo.isDone}">
                 <input data-id="${todo.id}" class="check" type="checkbox" ${todo.isDone ? 'checked' : ''}/>
             </td>
