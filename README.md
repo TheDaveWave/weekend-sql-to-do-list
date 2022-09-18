@@ -1,9 +1,7 @@
-# Project Name
-
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+# To Do List
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+_Duration: 2 Day Sprint_
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+This application mimics a very basic to do list. It allows for the user to set the priority and due date of their to-do and allows the user to check off completed tasks.
