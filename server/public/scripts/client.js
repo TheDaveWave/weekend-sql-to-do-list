@@ -55,9 +55,9 @@ function appendTodos(response) {
     $('#todos').empty();
     for(const todo of response) {
         let cleanDue = todo.due.substring(0, todo.due.indexOf('T'));
-        console.log(cleanDue);
+        // console.log(cleanDue);
         $('#todos').append(`
-        <tr>
+        <tr ${todo.isDone ? 'class="done"' : ''}>
             <td>${todo.priority}</td>
             <td>${todo.task}</td>
             <td>${todo.due !== null ? cleanDue : ''}</td>
@@ -90,6 +90,8 @@ function toggleCheck(event) {
     }).catch((error) => {
         console.log(error);
     });
+
+    // $(event.target).closest('tr').toggleClass('done');
 }
 
 // Ajax request to DELETE a todo

@@ -1,0 +1,48 @@
+body {
+    background-color: #F6E8B1;
+}
+
+main {
+    position: fixed;
+    margin: 0 auto;
+    width: 50%;
+    left: 25%;
+    text-align: center;
+}
+
+#add-todo {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#add-todo, table {
+    background-color: #89CFF0;
+    border: 5px solid #e3d291;
+    padding: 5px;
+}
+
+
+table {
+    margin: 0 auto;
+}
+
+tr:nth-child(even){
+    background-color: aliceblue;
+}
+
+thead {
+    background-color: #48c1f9;
+}
+
+table, th, td {
+    border: 1px solid;
+}
+
+
+tr:hover {
+    background-color: #48c1f9;
+}
+
+.done {
+    background-color: rgba(128, 128, 128, 0.553);
+}
