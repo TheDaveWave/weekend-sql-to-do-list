@@ -21,6 +21,8 @@ router.post('/', (req,res) => {
     let queryText = '';
     let values = [];
 
+    // queryText = `INSERT INTO "todos" (${todo.task !== '' ? "tasks" : ''})`;
+
     // check for empty keys and use the correct query statement accordingly.
     if(todo.task !== '' && todo.priority !== undefined && todo.due !== '') {
         // setup query statement to insert a new todo.
